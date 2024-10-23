@@ -1,0 +1,44 @@
+html,
+body {
+  font-family: "Microsoft YaHei", "Arial", "微软雅黑", "黑体", "宋体", sans-serif;
+  font-size: 26px;
+  color: #000;
+  overflow-y: hidden;
+  // 解决上下拖动卡顿
+  -webkit-overflow-scrolling: touch;
+  overflow-scrolling: touch;
+  // 移动端取消 touch 高亮效果
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-touch-callout: none; // 长时间按住页面不闪退
+  background-color: #f5f5f5;
+  background-clip: padding-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-backface-visibility: hidden; // 旋转元素,背面不可见
+}
+
+// android 元素被点击时去掉边框
+a,
+button,
+input,
+textarea {
+  -webkit-user-modify: read-write-plaintext-only;
+}
+
+// 移动端清除输入框内阴影
+input,
+textarea {
+  border: 0;
+  -webkit-appearance: none;
+}
+
+// 解决skew 变形、rotate 旋转会出现锯齿
+// element {
+//   -webkit-transform: rotate(-4deg) skew(10deg) translateZ(0);
+//   transform: rotate(-4deg) skew(10deg) translateZ(0);
+//   outline: 1px solid rgba(255, 255, 255, 0);
+// }
