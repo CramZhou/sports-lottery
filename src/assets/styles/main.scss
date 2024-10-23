@@ -42,3 +42,43 @@ textarea {
 //   transform: rotate(-4deg) skew(10deg) translateZ(0);
 //   outline: 1px solid rgba(255, 255, 255, 0);
 // }
+
+/* 字体 */
+@font-face {
+  font-family: "FZRuiZHK";
+  src: url("../fonts/FZRuiZHK.TTF");
+}
+
+// @media screen and (orientation: portrait) {
+//   body {
+//     transform: rotate(90deg);
+//     transform-origin: center;
+//     width: 100vh;
+//     height: 100vw;
+//     overflow-x: hidden;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+//     margin: 0;
+//     padding: 0;
+//   }
+// }
+
+// @media screen and (orientation: landscape) {
+//   body {
+//     transform: rotate(0);
+//     transform-origin: center;
+//     width: 100vw;
+//     height: 100vh;
+//     overflow-x: hidden;
+//     position: fixed;
+//     top: 0;
+//     left: 0;
+//     bottom: 0;
+//     right: 0;
+//     margin: 0;
+//     padding: 0;
+//   }
+// }

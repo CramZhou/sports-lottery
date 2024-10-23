@@ -7,6 +7,7 @@ import "normalize.css";
 import "@/assets/styles/main.scss";
 
 import "@/utils/fastClick";
+// import "@/utils/forcedLandscape";
 // import "@/service/permission";
 
 // vant 函数组件样式
@@ -14,6 +15,8 @@ import "vant/es/toast/style";
 import "vant/es/dialog/style";
 import "vant/es/notify/style";
 import "vant/es/image-preview/style";
+
+("@/utils/forcedLandscape");
 
 const app = createApp(App);
 const store = createPinia();

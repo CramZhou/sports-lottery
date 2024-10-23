@@ -48,3 +48,6 @@ export function throttle(func, wait) {
     }
   };
 }
+
+/** 取随机数 */
+export const getRandom = (max, min = 0) => Math.floor(Math.random() * (max - min) + min);

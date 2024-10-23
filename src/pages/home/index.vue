@@ -1,6 +1,6 @@
 <template>
   <div class="body-main">
-    <CommonLoad :load-count="loadCount" v-if="loadCount <= 100" />
+    <common-load :load-count="loadCount" v-if="loadCount <= 100" />
     <div class="bg-b" :style="{ transform: `translateX(${bgDis}%)` }"></div>
     <div class="train" :style="{ transform: `translateX(${trainDis}%)` }">
       <div class="door" v-for="door in 5">
@@ -9,44 +9,17 @@
     </div>
     <div class="bg-f" :style="{ transform: `translateX(${bgDis}%)` }"></div>
     <!-- 答题弹窗 -->
-    <div class="answer-wrapper" v-if="currentStation">
-      <div class="answer-bg">
-        <div class="an-headline">{{ currentQuestion.headline }}</div>
-        <div class="an-subtitle">{{ currentQuestion.subtitle }}</div>
-        <template v-if="!whetherAnswer">
-          <div class="an-issue">{{ currentIssue.issue }}</div>
-          <div class="an-options">
-            <div
-              :class="{
-                active: currentSolution === item
-              }"
-              v-for="item in currentIssue.options"
-              @click="() => choiceSolution(item)"
-            >
-              <span>{{ item }}</span> <i></i>
-            </div>
-          </div>
-          <div class="an-btn" @click="submitSolution"><span>选择提交</span></div>
-        </template>
-        <template v-else>
-          <div class="an-result">
-            <div class="an-correct" v-if="allResult[currentStation - 1]">回答正确</div>
-            <div class="an-error" v-else>回答错误</div>
-            <div class="an-solution">{{ currentIssue.solution }}</div>
-          </div>
-          <div class="an-detail">{{ currentIssue.detail }}</div>
-          <div class="an-btn" @click="handleGoon"><span>点击前行</span></div>
-        </template>
-      </div>
-    </div>
+    <common-question v-if="['1', '2', '3'].includes(currentStation)" :current-station="currentStation" :all-result="allResult" @handleRegain="handleRegain" />
+    <!-- 大乐透 -->
+    <common-lotto v-if="['4'].includes(currentStation)" @handleRegain="handleRegain" />
   </div>
 </template>
 
 <script setup>
-import { questionMap } from "./config";
-
-const currentDoor = ref(0);
-const passStation = ref(0);
+const currentDoor = ref(0); // 当前门，用于开门
+const currentStation = ref(""); // 当前站点，用于弹窗，比开门晚
+const passStation = ref(0); // 记录已开过的站点，开过的站点，弹窗不需要再显示
+const allResult = ref([]); // 所有的答案
 
 /** 前后背景  */
 let bgTimer = null;
@@ -72,50 +45,10 @@ const trainCD = () => {
   }
 };
 
-/** 停车 */
-const currentStation = ref(""); // 当前站点
-const currentQuestion = ref({}); // 当前站点整个问题配置
-const currentIssue = ref({}); // 当前站点选中的问题
-watch(
-  () => currentStation.value,
-  (station) => {
-    if (station) {
-      currentQuestion.value = questionMap[station];
-      currentIssue.value = questionMap[station].list[Math.floor(Math.random() * questionMap[station].list.length)];
-    } else {
-      currentQuestion.value = {};
-      currentIssue.value = {};
-    }
-  }
-);
-
-/** 答题 */
-const allResult = ref([]); // 所有的答案
-
-const currentSolution = ref(""); // 当前选的答案
-const whetherAnswer = ref(false); // 当前题目是否回答
-
-const choiceSolution = (solution) => {
-  currentSolution.value = solution;
-};
-
-const submitSolution = () => {
-  if (currentSolution.value) {
-    whetherAnswer.value = true;
-    if (currentSolution.value === currentIssue.value.solution) {
-      allResult.value.push(true);
-    } else {
-      allResult.value.push(false);
-    }
-  }
-};
-
-const handleGoon = () => {
+/** 继续开车 */
+const handleRegain = () => {
   currentDoor.value = 0;
   currentStation.value = "";
-
-  currentSolution.value = "";
-  whetherAnswer.value = false;
   bgCD();
   trainCD();
 };
@@ -149,6 +82,7 @@ watch(
       trainTimer && clearTimeout(trainTimer);
       currentDoor.value = 4;
       passStation.value = 4;
+      setTimeout(() => (currentStation.value = "4"), 500);
     }
   }
 );
