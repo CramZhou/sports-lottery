@@ -3,7 +3,7 @@
     <div class="popup-bg answer-bg">
       <div class="popup-headline">{{ currentQuestion.headline }}</div>
       <div class="popup-subtitle">{{ currentQuestion.subtitle }}</div>
-      <template v-if="!whetherAnswer">
+      <template v-if="!isAnswer">
         <div class="an-issue">{{ currentIssue.issue }}</div>
         <div class="an-options">
           <div
@@ -11,7 +11,7 @@
               active: currentSolution === item
             }"
             v-for="item in currentIssue.options"
-            @click="() => choiceSolution(item)"
+            @click="() => (currentSolution = item)"
           >
             <span>{{ item }}</span> <i></i>
           </div>
@@ -20,12 +20,13 @@
       </template>
       <template v-else>
         <div class="an-result">
-          <div class="an-correct" v-if="allResult[currentStation - 1]">回答正确</div>
+          <div class="an-correct" v-if="isCorrect">回答正确</div>
           <div class="an-error" v-else>回答错误</div>
           <div class="an-solution">{{ currentIssue.solution }}</div>
         </div>
         <div class="an-detail">{{ currentIssue.detail }}</div>
-        <div class="popup-btn" @click="handleGoOn"><span>点击前行</span></div>
+        <div class="popup-btn" v-if="isCorrect" @click="handleGoOn"><span>点击前行</span></div>
+        <div class="popup-btn" v-else @click="handleResume"><span>重新开始</span></div>
       </template>
     </div>
   </div>
@@ -34,8 +35,8 @@
 <script setup>
 import { questionMap } from "./config";
 
-const emit = defineEmits(["handleRegain"]);
-const props = defineProps(["currentStation", "allResult"]);
+const emit = defineEmits(["handleRegain", "handleRestart"]);
+const props = defineProps(["currentStation"]);
 
 /** 停车显示 */
 const currentQuestion = ref({}); // 当前站点整个问题配置
@@ -43,7 +44,7 @@ const currentIssue = ref({}); // 当前站点选中的问题
 watch(
   () => props.currentStation,
   (station) => {
-    if (station) {
+    if (["1", "2", "3"].includes(station)) {
       currentQuestion.value = questionMap[station];
       currentIssue.value = questionMap[station].list[Math.floor(Math.random() * questionMap[station].list.length)];
     } else {
@@ -56,28 +57,27 @@ watch(
 
 /** 答题 */
 const currentSolution = ref(""); // 当前选的答案
-const whetherAnswer = ref(false); // 当前题目是否回答
-
-const choiceSolution = (solution) => {
-  currentSolution.value = solution;
-};
+const isAnswer = ref(false); // 当前题目是否回答
+const isCorrect = ref(false); // 当前题目是否正确
 
 const submitSolution = () => {
   if (currentSolution.value) {
-    whetherAnswer.value = true;
-    if (currentSolution.value === currentIssue.value.solution) {
-      props.allResult.push(true);
-    } else {
-      props.allResult.push(false);
-    }
+    isAnswer.value = true;
+    isCorrect.value = currentSolution.value === currentIssue.value.solution;
   }
 };
 
 /** 继续开车 */
 const handleGoOn = () => {
   currentSolution.value = "";
-  whetherAnswer.value = false;
+  isAnswer.value = false;
   emit("handleRegain");
+};
+
+/** 从头开始 */
+const handleResume = () => {
+  emit("handleRestart");
+  handleGoOn();
 };
 </script>
 

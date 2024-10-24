@@ -1,0 +1,72 @@
+.terminus-bg {
+  background-image: url("@/assets/images/answer.png");
+
+  .terminus-headline {
+    background-image: url("@/assets/images/over-t.png");
+    background-repeat: no-repeat;
+    background-position: center 16px;
+    background-size: auto 60px;
+  }
+
+  .terminus-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 220px;
+    margin: 50px auto 0;
+    font-size: 28px;
+    color: #1c68cc;
+    line-height: 44px;
+    text-align: center;
+    background-image: url("@/assets/images/over.png");
+    background-size: 100% 100%;
+  }
+
+  .terminus-btn {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 120px;
+    height: 108px;
+    padding: 0 72px;
+    background-color: #db0000;
+    border-radius: 18px;
+    border: 6px solid #5a392b;
+
+    span {
+      position: relative;
+      z-index: 1;
+      font-weight: bold;
+      font-size: 50px;
+      color: #fff;
+      line-height: 96px;
+    }
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 6px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: block;
+      width: 90%;
+      height: 8px;
+      background-color: #ff7272;
+      border-radius: 18px;
+      z-index: 1;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: block;
+      width: 100%;
+      height: 88px;
+      background-color: #ff3030;
+      border-radius: 18px;
+    }
+  }
+}

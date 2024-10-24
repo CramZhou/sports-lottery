@@ -9,9 +9,19 @@
     </div>
     <div class="bg-f" :style="{ transform: `translateX(${bgDis}%)` }"></div>
     <!-- 答题弹窗 -->
-    <common-question v-if="['1', '2', '3'].includes(currentStation)" :current-station="currentStation" :all-result="allResult" @handleRegain="handleRegain" />
+    <common-question
+      v-show="['1', '2', '3'].includes(currentStation)"
+      :current-station="currentStation"
+      @handleRegain="handleRegain"
+      @handleRestart="handleRestart"
+    />
     <!-- 大乐透 -->
     <common-lotto v-if="['4'].includes(currentStation)" @handleRegain="handleRegain" />
+    <!-- 终点 -->
+    <common-terminus v-if="['5'].includes(currentStation)" @goTurn="goTurn" />
+    <!-- 转盘 -->
+    <!-- v-if="['6'].includes(currentStation)" -->
+    <common-turn />
   </div>
 </template>
 
@@ -19,7 +29,6 @@
 const currentDoor = ref(0); // 当前门，用于开门
 const currentStation = ref(""); // 当前站点，用于弹窗，比开门晚
 const passStation = ref(0); // 记录已开过的站点，开过的站点，弹窗不需要再显示
-const allResult = ref([]); // 所有的答案
 
 /** 前后背景  */
 let bgTimer = null;
@@ -31,6 +40,7 @@ const bgCD = () => {
     bgTimer = setTimeout(() => bgCD(), 30);
   } else {
     currentDoor.value = 5;
+    setTimeout(() => (currentStation.value = "5"), 500);
   }
 };
 
@@ -51,6 +61,13 @@ const handleRegain = () => {
   currentStation.value = "";
   bgCD();
   trainCD();
+};
+
+/** 从头开始 */
+const handleRestart = () => {
+  passStation.value = 0;
+  bgDis.value = 0;
+  trainDis.value = -100;
 };
 
 watch(
@@ -96,9 +113,14 @@ const loadCD = () => {
     loadCount.value++;
     loadTimer = setTimeout(() => loadCD(), 1);
   } else {
-    bgCD();
-    trainCD();
+    // bgCD();
+    // trainCD();
   }
+};
+
+/** 最终转盘 */
+const goTurn = () => {
+  currentStation.value = "6";
 };
 
 onMounted(() => {

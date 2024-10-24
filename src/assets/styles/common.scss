@@ -16,7 +16,7 @@
 
     .popup-headline {
       padding-top: 16px;
-      font-family: "FZRuiZHK";
+      // font-family: "FZRuiZHK";
       font-size: 36px;
       line-height: 68px;
       text-align: center;
@@ -27,7 +27,7 @@
       position: absolute;
       top: 370px;
       left: 112px;
-      font-family: "FZRuiZHK";
+      // font-family: "FZRuiZHK";
       font-size: 36px;
       color: #555289;
     }
@@ -42,15 +42,14 @@
       background-color: #dba800;
       border-radius: 12px;
       border: 4px solid #5a392b;
-      font-weight: 800;
-      font-size: 30px;
-      color: #333333;
-      line-height: 64px;
 
       span {
         position: relative;
         z-index: 1;
-        font-family: "FZRuiZHK";
+        font-weight: bold;
+        font-size: 30px;
+        color: #333333;
+        line-height: 64px;
       }
 
       &::before {

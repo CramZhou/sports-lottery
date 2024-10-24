@@ -45,7 +45,7 @@ import lotto1 from "@/assets/images/lotto1.png";
 import lotto2 from "@/assets/images/lotto2.png";
 import lotto3 from "@/assets/images/lotto3.png";
 import lotto4 from "@/assets/images/lotto4.png";
-import { getRandom } from "../../utils";
+import { getRandom } from "@/utils";
 
 const emit = defineEmits(["handleRegain"]);
 
@@ -65,7 +65,7 @@ let turnTimer = null;
 const turnNum = ref(0);
 const handleChooseLotto = () => {
   turnTimer && clearTimeout(turnTimer);
-  if (turnNum.value < 3) {
+  if (turnNum.value < 5) {
     turnNum.value++;
     allBalls.value = allBalls.value.map((ball) => ({
       src: ball.src,
