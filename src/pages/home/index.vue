@@ -20,8 +20,7 @@
     <!-- 终点 -->
     <common-terminus v-if="['5'].includes(currentStation)" @goTurn="goTurn" />
     <!-- 转盘 -->
-    <!-- v-if="['6'].includes(currentStation)" -->
-    <common-turn />
+    <common-turn v-if="['6'].includes(currentStation)" />
   </div>
 </template>
 
@@ -113,8 +112,8 @@ const loadCD = () => {
     loadCount.value++;
     loadTimer = setTimeout(() => loadCD(), 1);
   } else {
-    // bgCD();
-    // trainCD();
+    bgCD();
+    trainCD();
   }
 };
 
