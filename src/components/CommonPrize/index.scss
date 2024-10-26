@@ -1,0 +1,49 @@
+.close-popup {
+  position: absolute;
+  top: 120px;
+  right: 330px;
+  width: 100px;
+  z-index: 1;
+}
+
+.answer-bg {
+  background-image: url("@/assets/images/answer.png");
+}
+
+.prize-list {
+  padding: 40px 300px 0;
+
+
+  .prize-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+
+    .prize-img {
+      width: 80px;
+    }
+
+    .prize-title {
+      flex: 1;
+      font-weight: bold;
+      font-size: 32px;
+      color: #333333;
+      line-height: 44px;
+      letter-spacing: 1px;
+      text-align: left;
+      font-style: normal;
+    }
+
+    .prize-btn {
+      width: 140px;
+      height: 48px;
+      border-radius: 24px;
+      border: 2px solid #555289;
+      font-size: 24px;
+      text-align: center;
+      color: #555289;
+      line-height: 48px;
+    }
+  }
+}

@@ -79,4 +79,38 @@
     background-size: 100% 100%;
     z-index: 3;
   }
+
+  .float-icon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    left: 20px;
+    z-index: 4;
+    display: flex;
+    justify-content: space-between;
+
+    .icon-second {
+      flex: 1;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .icon-item {
+      width: 164px;
+      height: 148px;
+      background-size: 100% 100%;
+
+      &.icon1 {
+        background-image: url("@/assets/images/icon1.png");
+      }
+
+      &.icon2 {
+        background-image: url("@/assets/images/icon2.png");
+      }
+
+      &.icon3 {
+        background-image: url("@/assets/images/icon3.png");
+      }
+    }
+  }
 }

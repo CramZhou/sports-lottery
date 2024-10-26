@@ -3,7 +3,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 4;
+  z-index: 5;
 
   .popup-bg {
     position: absolute;
@@ -26,10 +26,12 @@
     .popup-subtitle {
       position: absolute;
       top: 370px;
-      left: 112px;
+      left: 70px;
+      width: 190px;
       // font-family: "FZRuiZHK";
       font-size: 36px;
       color: #555289;
+      text-align: center;
     }
 
     .popup-btn {

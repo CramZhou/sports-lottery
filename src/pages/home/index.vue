@@ -8,6 +8,13 @@
       </div>
     </div>
     <div class="bg-f" :style="{ transform: `translateX(${bgDis}%)` }"></div>
+    <div class="float-icon">
+      <div class="icon-item icon1" @click="handleBackHome"></div>
+      <div class="icon-second">
+        <div class="icon-item icon2" @click="() => handleTriggerRule(true)"></div>
+      </div>
+      <div class="icon-item icon3" @click="() => handleTriggerPrize(true)"></div>
+    </div>
     <!-- 答题弹窗 -->
     <common-question
       v-show="['1', '2', '3'].includes(currentStation)"
@@ -19,12 +26,19 @@
     <common-lotto v-if="['4'].includes(currentStation)" @handleRegain="handleRegain" />
     <!-- 终点 -->
     <common-terminus v-if="['5'].includes(currentStation)" @goTurn="goTurn" />
+    <!--     -->
     <!-- 转盘 -->
-    <common-turn v-if="['6'].includes(currentStation)" />
+    <common-turn v-if="['6'].includes(currentStation)" @handleBackHome="handleBackHome" />
+    <!-- 规则 -->
+    <common-rule v-show="ruleFlag" @handleTriggerRule="handleTriggerRule" />
+    <!-- 奖品 -->
+    <common-prize v-if="prizeFlag" @handleTriggerPrize="handleTriggerPrize" />
   </div>
 </template>
 
 <script setup>
+import { projectApi } from "@/service";
+
 const currentDoor = ref(0); // 当前门，用于开门
 const currentStation = ref(""); // 当前站点，用于弹窗，比开门晚
 const passStation = ref(0); // 记录已开过的站点，开过的站点，弹窗不需要再显示
@@ -56,6 +70,7 @@ const trainCD = () => {
 
 /** 继续开车 */
 const handleRegain = () => {
+  clearTimeout(openDoorTimer);
   currentDoor.value = 0;
   currentStation.value = "";
   bgCD();
@@ -69,36 +84,39 @@ const handleRestart = () => {
   trainDis.value = -100;
 };
 
+/** 暂停 */
+const handlePause = () => {
+  bgTimer && clearTimeout(bgTimer);
+  trainTimer && clearTimeout(trainTimer);
+};
+
+let openDoorTimer = null;
 watch(
   () => bgDis.value,
   (dis) => {
     if (dis < -15.3 && passStation.value === 0) {
-      bgTimer && clearTimeout(bgTimer);
-      trainTimer && clearTimeout(trainTimer);
+      handlePause();
       currentDoor.value = 1;
       passStation.value = 1;
-      setTimeout(() => (currentStation.value = "1"), 500);
+      openDoorTimer = setTimeout(() => (currentStation.value = "1"), 500);
     }
     if (dis < -29.2 && passStation.value === 1) {
-      bgTimer && clearTimeout(bgTimer);
-      trainTimer && clearTimeout(trainTimer);
+      handlePause();
       currentDoor.value = 2;
       passStation.value = 2;
-      setTimeout(() => (currentStation.value = "2"), 500);
+      openDoorTimer = setTimeout(() => (currentStation.value = "2"), 500);
     }
     if (dis < -44 && passStation.value === 2) {
-      bgTimer && clearTimeout(bgTimer);
-      trainTimer && clearTimeout(trainTimer);
+      handlePause();
       currentDoor.value = 3;
       passStation.value = 3;
-      setTimeout(() => (currentStation.value = "3"), 500);
+      openDoorTimer = setTimeout(() => (currentStation.value = "3"), 500);
     }
     if (dis < -58.9 && passStation.value === 3) {
-      bgTimer && clearTimeout(bgTimer);
-      trainTimer && clearTimeout(trainTimer);
+      handlePause();
       currentDoor.value = 4;
       passStation.value = 4;
-      setTimeout(() => (currentStation.value = "4"), 500);
+      openDoorTimer = setTimeout(() => (currentStation.value = "4"), 500);
     }
   }
 );
@@ -122,7 +140,37 @@ const goTurn = () => {
   currentStation.value = "6";
 };
 
+/** 返回首页 */
+const handleBackHome = () => {
+  handleRestart();
+  handleRegain();
+};
+
+/** 活动规则 */
+const ruleFlag = ref(false);
+const handleTriggerRule = (flag) => {
+  ruleFlag.value = flag;
+  if (flag) {
+    handlePause();
+  } else {
+    handleRegain();
+  }
+};
+
+/** 奖品 */
+const prizeFlag = ref(false);
+const handleTriggerPrize = (flag) => {
+  prizeFlag.value = flag;
+  if (flag) {
+    handlePause();
+  } else {
+    handleRegain();
+  }
+};
+
 onMounted(() => {
+  // projectApi({ method: "register", phone: "18551801270", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z", code: "888888" });
+  // projectApi({ method: "gift", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z" });
   loadCD();
 });
 

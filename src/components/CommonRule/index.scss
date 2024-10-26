@@ -1,0 +1,25 @@
+.close-popup {
+  position: absolute;
+  top: 120px;
+  right: 330px;
+  width: 100px;
+  z-index: 1;
+}
+
+.answer-bg {
+  background-image: url("@/assets/images/answer.png");
+
+}
+
+.lotto-rule {
+  padding: 50px 320px 0;
+  font-size: 24px;
+  line-height: 34px;
+  color: #000000;
+
+  p {
+    margin: 0;
+    padding: 0;
+    text-indent: 2em;
+  }
+}
