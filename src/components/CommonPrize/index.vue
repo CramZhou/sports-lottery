@@ -8,11 +8,12 @@
         <div class="prize-item" v-for="prize in prizeList" :key="prize.info">
           <img class="prize-img" :src="prize.src" />
           <div class="prize-title">{{ prize.title }}</div>
-          <div class="prize-btn">查看详情</div>
+          <div class="prize-btn" @click="() => triggerDetail(prize)">查看详情</div>
         </div>
       </div>
       <div class="popup-btn" @click="() => emit('handleTriggerPrize', false)"><span>知道了</span></div>
     </div>
+    <common-prize-detail v-if="!!prizeDetail" :prize-detail="prizeDetail" @triggerDetail="triggerDetail" />
   </div>
 </template>
 
@@ -36,6 +37,12 @@ onMounted(() => {
     }));
   });
 });
+
+/** 详情 */
+const prizeDetail = ref(null);
+const triggerDetail = (detail) => {
+  prizeDetail.value = detail;
+};
 </script>
 
 <style lang="scss" scoped>

@@ -29,13 +29,13 @@
       <div class="bingo-main">
         <div class="bingo-title">中奖啦，恭喜您获得</div>
         <img class="bingo-img" :src="bingoDetail.src" />
-        <div class="bingo-info" @click="() => (bingoInfoShow = true)">
-          <span v-if="bingoInfoShow">{{ bingoDetail.info }}</span>
-          <span v-else>查看卡号卡密</span>
+        <div class="bingo-info" @click="() => triggerBingoDetail(true)">
+          <span>查看卡号卡密</span>
         </div>
         <div class="handle-btn" @click="() => (bingoFlag = false)"><span>知道了</span></div>
       </div>
     </div>
+    <common-prize-detail v-if="bingoInfoShow" :prize-detail="bingoDetail" @triggerDetail="triggerBingoDetail" />
     <!-- 规则 -->
     <common-rule v-show="ruleFlag" @handleTriggerRule="handleTriggerRule" />
     <!-- 奖品 -->
@@ -74,8 +74,26 @@ const bingoFlag = ref(false);
 const bingoDetail = ref({});
 const bingoInfoShow = ref(false);
 
+const triggerBingoDetail = (flag) => {
+  bingoInfoShow.value = flag;
+};
+
 const handleRaffle = () => {
   if (angle.value > 0) return;
+
+  // 中奖测试
+  // const data = {
+  //   desc: '复制券码，打开京东APP点击"我的"进入"我的钱包""礼品卡"页面底部"绑定新卡输入卡密及验证码点击绑定',
+  //   expiration: "会考试的话就卡死的",
+  //   idinfo: "321863需要9的符号请问",
+  //   info: "调取围绕245 ",
+  //   title: "京东e卡",
+  //   type: "1"
+  // };
+  // const prize = bingoMap[data.type];
+  // angle.value = prize.angle;
+  // bingoDetail.value = { ...prize, ...data };
+  // setTimeout(() => (bingoFlag.value = true), 3100);
 
   projectApi({ method: "gift", openid }).then(({ sucess, msg, data }) => {
     if (sucess === 0) {
