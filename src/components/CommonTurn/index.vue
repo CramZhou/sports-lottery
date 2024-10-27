@@ -40,16 +40,28 @@
     <common-rule v-show="ruleFlag" @handleTriggerRule="handleTriggerRule" />
     <!-- 奖品 -->
     <common-prize v-if="prizeFlag" @handleTriggerPrize="handleTriggerPrize" />
+    <!-- 注册 -->
+    <common-login v-if="loginFlag" @triggerLogin="triggerLogin" />
   </div>
 </template>
 
 <script setup>
+import { showToast } from "vant";
 import { getRandom } from "@/utils";
 import { projectApi } from "@/service";
 import close from "@/assets/images/close.png";
 import { loseAngle, bingoMap } from "./constant";
+import proofStore from "@/store/proof";
+
+const { openid } = proofStore();
 
 const emit = defineEmits(["handleBackHome"]);
+
+/** 注册 */
+const loginFlag = ref(false);
+const triggerLogin = (flag) => {
+  loginFlag.value = flag;
+};
 
 /** 转盘角度 */
 const angle = ref(0);
@@ -65,12 +77,17 @@ const bingoInfoShow = ref(false);
 const handleRaffle = () => {
   if (angle.value > 0) return;
 
-  projectApi({ method: "gift", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z" }).then(({ sucess, msg, data }) => {
+  projectApi({ method: "gift", openid }).then(({ sucess, msg, data }) => {
     if (sucess === 0) {
       if (msg === "谢谢，未抽中！") {
         angle.value = loseAngle[getRandom(3)];
         setTimeout(() => (loseFlag.value = true), 3100);
       } else if (msg === " 请先注册！") {
+        showToast({
+          message: "即将跳转注册",
+          icon: "warning-o"
+        });
+        setTimeout(() => triggerLogin(true), 2000);
       }
     } else if (sucess === 1) {
       const prize = bingoMap[data.type];

@@ -26,9 +26,9 @@
     <common-lotto v-if="['4'].includes(currentStation)" @handleRegain="handleRegain" />
     <!-- 终点 -->
     <common-terminus v-if="['5'].includes(currentStation)" @goTurn="goTurn" />
-    <!--     -->
+    <!--  v-if="['6'].includes(currentStation)"   -->
     <!-- 转盘 -->
-    <common-turn v-if="['6'].includes(currentStation)" @handleBackHome="handleBackHome" />
+    <common-turn @handleBackHome="handleBackHome" />
     <!-- 规则 -->
     <common-rule v-show="ruleFlag" @handleTriggerRule="handleTriggerRule" />
     <!-- 奖品 -->
@@ -37,7 +37,7 @@
 </template>
 
 <script setup>
-import { projectApi } from "@/service";
+import useGetOpenid from "@/hooks/useGetOpenid";
 
 const currentDoor = ref(0); // 当前门，用于开门
 const currentStation = ref(""); // 当前站点，用于弹窗，比开门晚
@@ -168,9 +168,11 @@ const handleTriggerPrize = (flag) => {
   }
 };
 
+/** 获取openid */
+const { getOpenid } = useGetOpenid();
+
 onMounted(() => {
-  // projectApi({ method: "register", phone: "18551801270", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z", code: "888888" });
-  // projectApi({ method: "gift", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z" });
+  getOpenid();
   loadCD();
 });
 

@@ -20,18 +20,20 @@
 import close from "@/assets/images/close.png";
 import { projectApi } from "@/service";
 import { bingoMap } from "../CommonTurn/constant";
+import proofStore from "@/store/proof";
+
+const store = proofStore();
 
 const emit = defineEmits(["handleTriggerPrize"]);
 
 const prizeList = ref([]);
 
 onMounted(() => {
-  projectApi({ method: "mygift", openid: "091SM80w3U8BJ33prM3w3yUnuY3SM80Z" }).then(({ data }) => {
+  projectApi({ method: "mygift", openid: store.openid }).then(({ data }) => {
     prizeList.value = data.map((prize) => ({
       ...prize,
       ...bingoMap[prize.type]
     }));
-    console.log(1111, prizeList.value);
   });
 });
 </script>

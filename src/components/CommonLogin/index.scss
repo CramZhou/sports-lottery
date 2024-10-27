@@ -1,34 +1,14 @@
-<template>
-  <div class="login-wrapper">
-    <div class="login-form">
-      <div class="login-title">欢迎登录</div>
-      <div class="login-input">
-        <div class="input-item">
-          <label for="tel">手机号</label>
-          <input id="tel" type="tel" />
-        </div>
-        <div class="input-item">
-          <label for="number">验证码</label>
-          <input id="number" type="number" />
-          <div class="send" @click="handleSendCode">发送验证码</div>
-        </div>
-      </div>
-      <div class="login-confirm"><span>确定登录</span></div>
-    </div>
-  </div>
-</template>
-
-<script setup>
-const handleSendCode = () => {};
-</script>
-
-<style lang="scss" scoped>
 .login-wrapper {
-  position: relative;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-image: url("../../assets/images/login-bg.png");
   background-size: 100% 100%;
+  z-index: 9;
 }
 
 .login-form {
@@ -116,4 +96,44 @@ const handleSendCode = () => {};
     }
   }
 }
-</style>
+
+.drag-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9;
+
+  .drag-main {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60vw;
+    height: 120px;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    border: 5px solid #333;
+    overflow: hidden;
+    background-color: #d8d8d8;
+
+    .drag-bar {
+      position: absolute;
+      width: 88%;
+      height: 100%;
+      background-color: #bbb;
+    }
+
+    .drag-btn {
+      position: absolute;
+      width: 120px;
+      height: 100%;
+      left: 88%;
+      z-index: 1;
+      background-color: #e74040;
+    }
+  }
+}
