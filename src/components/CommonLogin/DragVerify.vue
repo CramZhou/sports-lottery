@@ -50,9 +50,9 @@ const onDragHandlerMouseMove = (event) => {
   // 超过最大偏移量，不增加绿色区域宽度
   if (left > maxHandlerOffset) return;
   // 滑块移动量（距离左侧的定位）
-  dragHandler.style.left = `${left  }px`;
+  dragHandler.style.left = `${left}px`;
   // 绿色背景的长度
-  dragBg.style.width = `${left  }px`;
+  dragBg.style.width = `${left}px`;
 };
 // 鼠标抬起
 const onDragHandlerMouseUp = () => {
@@ -116,8 +116,8 @@ onMounted(() => {
   right: 0;
   bottom: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 9;
   display: flex;

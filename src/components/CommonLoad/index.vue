@@ -15,8 +15,8 @@ defineProps(["loadCount"]);
 <style lang="scss" scoped>
 .load-wrapper {
   position: relative;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   background-image: url("../../assets/images/login-bg.png");
   background-size: 100% 100%;
   z-index: 99;

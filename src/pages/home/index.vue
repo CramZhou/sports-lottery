@@ -171,7 +171,7 @@ const handleTriggerPrize = (flag) => {
 const { getOpenid } = useGetOpenid();
 
 onMounted(() => {
-  getOpenid();
+  // getOpenid();
   loadCD();
 });
 
