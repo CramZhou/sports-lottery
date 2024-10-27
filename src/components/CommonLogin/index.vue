@@ -55,7 +55,7 @@ const handleRegister = () => {
   const { phone, code } = loginParams.value;
   if (loginParams.value.phone && loginParams.value.code) {
     emit("triggerLogin", false);
-    projectApi({ method: "register", phone, openid: "kdjsahdjkas", code }).then(({ msg, sucess }) => {
+    projectApi({ method: "register", phone, openid, code }).then(({ msg, sucess }) => {
       showToast(msg);
       if (sucess === 1) {
         emit("triggerLogin", false);
