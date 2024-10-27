@@ -2,7 +2,7 @@ module.exports = {
   plugins: {
     "postcss-px-to-viewport-8-plugin": {
       unitToConvert: "px", // 需要转换的单位，默认为"px"
-      viewportWidth: 1624, // 设计稿的视口宽度
+      viewportWidth: 750, // 设计稿的视口宽度
       exclude: [/node_modules/], // 解决vant375,设计稿750问题。忽略某些文件夹下的文件或特定文件
       unitPrecision: 5, // 单位转换后保留的精度
       propList: ["*"], // 能转化为vw的属性列表

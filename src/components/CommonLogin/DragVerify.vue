@@ -14,6 +14,10 @@
 <script setup>
 const emit = defineEmits(["triggerVerify"]);
 
+const width = document.documentElement.clientWidth;
+const height = document.documentElement.clientHeight;
+const isLandscape = width > height;
+
 let dragContainer = null;
 let dragBg = null;
 let dragText = null;
@@ -38,6 +42,11 @@ const onDragHandlerMouseMove = (event) => {
   // 滑块移动量
   const dragX = dragBg?.getBoundingClientRect() || {};
   let left = event.touches[0].pageX - dragHandler.clientWidth / 2 - dragX.left;
+
+  // 竖屏
+  if (!isLandscape) {
+    left = event.touches[0].pageY - dragHandler.clientHeight / 2 - dragX.top;
+  }
 
   if (left < 0) {
     // 滑动小于0设为0
@@ -66,7 +75,7 @@ const onDragHandlerMouseUp = () => {
   dragBg.style.width = 0;
 };
 // 鼠标按下
-const onDragHandlerMouseDown = () => {
+const onDragHandlerMouseDown = (e) => {
   // 鼠标移动监听
   document.addEventListener("touchmove", onDragHandlerMouseMove);
   // 鼠标松开监听
@@ -131,7 +140,7 @@ onMounted(() => {
   transform: translate(-50%, -50%);
   display: inline-block;
   background: #e8e8e8;
-  width: 50vw;
+  width: 50%;
   height: 120px;
   border-radius: 20px;
   overflow: hidden;

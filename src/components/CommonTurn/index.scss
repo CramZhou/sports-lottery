@@ -8,11 +8,15 @@
 
   .turn-btn {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 9.3%;
-    height: 25%;
+    // top: 50%;
+    // left: 50%;
+    // transform: translate(-50%, -50%);
+    top: 280px;
+    left: 600px;
+    width: 146px;
+    height: 178px;
+    // width: 9.3%;
+    // height: 25%;
     background-image: url("@/assets/images/raffle-btn.png");
     background-size: 100% 100%;
     z-index: 3;
@@ -21,9 +25,12 @@
   .turn-circle {
     position: absolute;
     top: 0;
-    left: 28.8%;
-    width: 47.1%;
-    height: 97%;
+    left: 326px;
+    width: 765px;
+    height: 728px;
+    // left: 28.8%;
+    // width: 47.1%;
+    // height: 97%;
     background-image: url("@/assets/images/raffle-circle.png");
     background-size: 100% 100%;
     z-index: 2;
@@ -31,10 +38,14 @@
 
   .turn-loop {
     position: absolute;
-    top: 18.1%;
-    left: 35.3%;
-    width: 29.5%;
-    height: 64%;
+    top: 130px;
+    left: 430px;
+    width: 494px;
+    height: 494px;
+    // top: 18.1%;
+    // left: 35.3%;
+    // width: 29.5%;
+    // height: 64%;
     background-image: url("@/assets/images/raffle-loop.png");
     background-size: 100% 100%;
     z-index: 1;
@@ -90,8 +101,9 @@
   >img {
     position: absolute;
     top: 120px;
-    right: 400px;
+    left: calc(50% + 310px);
     width: 100px;
+    z-index: 1;
   }
 
   .lose-main {

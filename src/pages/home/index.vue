@@ -173,6 +173,13 @@ const { getOpenid } = useGetOpenid();
 onMounted(() => {
   getOpenid();
   loadCD();
+  document.addEventListener(
+    "touchmove",
+    (e) => {
+      e.preventDefault();
+    },
+    { passive: false }
+  );
 });
 
 onUnmounted(() => {

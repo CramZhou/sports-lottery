@@ -1,7 +1,8 @@
 .close-popup {
   position: absolute;
   top: 120px;
-  right: 330px;
+  left: calc(50% + 380px);
+  // right: 330px;
   width: 100px;
   z-index: 1;
 }
