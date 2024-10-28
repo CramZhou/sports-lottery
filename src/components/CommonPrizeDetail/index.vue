@@ -8,12 +8,30 @@
           <div class="info-item">
             <div>卡号：</div>
             <span>{{ prizeDetail.idinfo }}</span>
-            <div @click="() => handleCopy(prizeDetail.idinfo)">| 复制</div>
+            |
+            <div
+              :style="{
+                color: copyKh ? '#59ca8a' : '#000'
+              }"
+              class="copy-text"
+              @click="() => handleCopy(prizeDetail.idinfo, 'kh')"
+            >
+              复制
+            </div>
           </div>
           <div class="info-item">
             <div>券码：</div>
             <span>{{ prizeDetail.info }}</span>
-            <div @click="() => handleCopy(prizeDetail.info)">| 复制</div>
+            |
+            <div
+              :style="{
+                color: copyQm ? '#59ca8a' : '#000'
+              }"
+              class="copy-text"
+              @click="() => handleCopy(prizeDetail.info, 'qm')"
+            >
+              复制
+            </div>
           </div>
         </div>
         <div class="detail-expiration">
@@ -26,24 +44,33 @@
 </template>
 
 <script setup>
-import { showToast } from "vant";
+// import { showToast } from "vant";
 import close from "@/assets/images/close.png";
 
 const emit = defineEmits(["triggerDetail"]);
 
 defineProps(["prizeDetail"]);
 
-const handleCopy = (text) => {
+const copyKh = ref(false);
+const copyQm = ref(false);
+
+const handleCopy = (text, flag) => {
   const oInput = document.createElement("textarea");
   oInput.value = text;
   document.body.appendChild(oInput);
   oInput.select();
   document.execCommand("Copy");
   document.body.removeChild(oInput);
-  showToast({
-    message: "复制成功",
-    icon: "success"
-  });
+  if (flag === "kh") {
+    copyKh.value = true;
+  }
+  if (flag === "qm") {
+    copyQm.value = true;
+  }
+  // showToast({
+  //   message: "复制成功",
+  //   icon: "success"
+  // });
 };
 </script>
 

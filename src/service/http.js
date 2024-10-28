@@ -35,7 +35,7 @@ const errorHandler = (error) => {
   };
   const reqData = error.config.data;
   reqData && Object.assign(errData, { data: reqData });
-  showErrMsg(msgStr);
+  // showErrMsg(msgStr);
   throw error;
 };
 
@@ -71,8 +71,8 @@ service.interceptors.response.use(
     if ([0, 200].includes(code) || code === undefined) {
       return Promise.resolve(data);
     } else {
-      const errorMsg = errorCode[code] ?? msg ?? errorCode.default;
-      showErrMsg(errorMsg);
+      // const errorMsg = errorCode[code] ?? msg ?? errorCode.default;
+      // showErrMsg(errorMsg);
       return Promise.reject(new Error(msg));
     }
   },

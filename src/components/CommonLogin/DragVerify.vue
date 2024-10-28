@@ -14,9 +14,9 @@
 <script setup>
 const emit = defineEmits(["triggerVerify"]);
 
-const width = document.documentElement.clientWidth;
-const height = document.documentElement.clientHeight;
-const isLandscape = width > height;
+// const width = document.documentElement.clientWidth;
+// const height = document.documentElement.clientHeight;
+// const isLandscape = width > height;
 
 let dragContainer = null;
 let dragBg = null;
@@ -37,6 +37,7 @@ const initDrag = () => {
   dragText.style.color = "";
   dragHandler.setAttribute("class", "dragHandlerBg");
 };
+
 // 鼠标移动
 const onDragHandlerMouseMove = (event) => {
   // 滑块移动量
@@ -44,9 +45,9 @@ const onDragHandlerMouseMove = (event) => {
   let left = event.touches[0].pageX - dragHandler.clientWidth / 2 - dragX.left;
 
   // 竖屏
-  if (!isLandscape) {
-    left = event.touches[0].pageY - dragHandler.clientHeight / 2 - dragX.top;
-  }
+  // if (!isLandscape) {
+  //   left = event.touches[0].pageY - dragHandler.clientHeight / 2 - dragX.top;
+  // }
 
   if (left < 0) {
     // 滑动小于0设为0
@@ -63,6 +64,7 @@ const onDragHandlerMouseMove = (event) => {
   // 绿色背景的长度
   dragBg.style.width = `${left}px`;
 };
+
 // 鼠标抬起
 const onDragHandlerMouseUp = () => {
   // 移除鼠标移动监听
@@ -74,13 +76,15 @@ const onDragHandlerMouseUp = () => {
   // 初始化绿色背景
   dragBg.style.width = 0;
 };
+
 // 鼠标按下
-const onDragHandlerMouseDown = (e) => {
+const onDragHandlerMouseDown = () => {
   // 鼠标移动监听
   document.addEventListener("touchmove", onDragHandlerMouseMove);
   // 鼠标松开监听
   document.addEventListener("touchend", onDragHandlerMouseUp);
 };
+
 // 滑动完成
 const verifySucc = () => {
   // 容器文本的文字改为白色“验证通过”字体
@@ -135,16 +139,16 @@ onMounted(() => {
 /* 滑动控件容器,灰色背景 */
 #dragContainer {
   position: absolute;
-  top: 50%;
+  top: 600px;
   left: 50%;
   transform: translate(-50%, -50%);
   display: inline-block;
   background: #e8e8e8;
-  width: 50%;
-  height: 120px;
-  border-radius: 20px;
+  width: 620px;
+  height: 100px;
+  border-radius: 50px;
   overflow: hidden;
-  border: 2px solid #e8e8e8;
+  border: 3px solid #e8e8e8;
 }
 /* 滑块左边部分,绿色背景 */
 #dragBg {
@@ -161,7 +165,7 @@ onMounted(() => {
   /* 文字水平居中 */
   text-align: center;
   /* 文字垂直居中,这里不能用百分比,因为百分比是相对原始line-height的,而非div高度 */
-  line-height: 120px;
+  line-height: 100px;
   font-size: 36px;
   /* 文本不允许选中 */
   user-select: none;
@@ -170,7 +174,7 @@ onMounted(() => {
 /* 滑块 */
 #dragHandler {
   position: absolute;
-  width: 120px;
+  width: 100px;
   height: 100%;
   cursor: move;
 }

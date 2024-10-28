@@ -26,7 +26,7 @@
     <common-lotto v-if="['4'].includes(currentStation)" @handleRegain="handleRegain" />
     <!-- 终点 -->
     <common-terminus v-if="['5'].includes(currentStation)" @goTurn="goTurn" />
-    <!-- 转盘 -->
+    <!-- 转盘  -->
     <common-turn v-if="['6'].includes(currentStation)" @handleBackHome="handleBackHome" />
     <!-- 规则 -->
     <common-rule v-show="ruleFlag" @handleTriggerRule="handleTriggerRule" />

@@ -1,0 +1,19 @@
+@media screen and (max-width: 1000px) {
+  .login-wrapper {
+    background-position: bottom;
+    background-size: contain;
+    background-color: #d0f8ff;
+  }
+
+  .login-form {
+    top: 300px;
+    left: 50%;
+    transform: translateX(-50%);
+
+    .login-input {
+      flex-direction: column;
+      gap: 50px;
+      margin-bottom: 50px;
+    }
+  }
+}

@@ -53,7 +53,6 @@
   }
 }
 
-
 .float-icon {
   position: absolute;
   top: 120px;
@@ -98,14 +97,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
 
-  >img {
-    position: absolute;
-    top: 120px;
-    left: calc(50% + 310px);
-    width: 100px;
-    z-index: 1;
-  }
-
   .lose-main {
     position: absolute;
     top: 120px;
@@ -115,6 +106,14 @@
     transform: translateX(-50%);
     background-image: url("@/assets/images/lose.png");
     background-size: 100% 100%;
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: -80px;
+      width: 96px;
+      z-index: 1;
+    }
 
     .handle-btn {
       position: absolute;
@@ -172,13 +171,6 @@
   background-color: rgba(0, 0, 0, 0.5);
   z-index: 5;
 
-  >img {
-    position: absolute;
-    top: 75px;
-    right: 400px;
-    width: 100px;
-  }
-
   .bingo-main {
     position: absolute;
     top: 75px;
@@ -193,6 +185,14 @@
     transform: translateX(-50%);
     background-image: url("@/assets/images/bingo.png");
     background-size: 100% 100%;
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: -80px;
+      width: 96px;
+      z-index: 1;
+    }
 
     .bingo-title {
       font-weight: bold;

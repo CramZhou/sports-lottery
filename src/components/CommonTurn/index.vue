@@ -18,15 +18,15 @@
     </div>
     <!-- 未中奖 -->
     <div class="lose-wrapper" v-if="loseFlag">
-      <img :src="close" @click="() => (loseFlag = false)" />
       <div class="lose-main">
+        <img class="close-btn" :src="close" @click="() => (loseFlag = false)" />
         <div class="handle-btn" @click="() => (loseFlag = false)"><span>知道了</span></div>
       </div>
     </div>
     <!-- 中奖了 -->
     <div class="bingo-wrapper" v-if="bingoFlag">
-      <img :src="close" @click="() => (bingoFlag = false)" />
       <div class="bingo-main">
+        <img class="close-btn" :src="close" @click="() => (bingoFlag = false)" />
         <div class="bingo-title">中奖啦，恭喜您获得</div>
         <img class="bingo-img" :src="bingoDetail.src" />
         <div class="bingo-info" @click="() => triggerBingoDetail(true)">
@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import { showToast } from "vant";
+// import { showToast } from "vant";
 import { getRandom } from "@/utils";
 import { projectApi } from "@/service";
 import close from "@/assets/images/close.png";
@@ -101,10 +101,10 @@ const handleRaffle = () => {
         angle.value = loseAngle[getRandom(3)];
         setTimeout(() => (loseFlag.value = true), 3100);
       } else if (msg === " 请先注册！") {
-        showToast({
-          message: "即将跳转注册",
-          icon: "warning-o"
-        });
+        // showToast({
+        //   message: "即将跳转注册",
+        //   icon: "warning-o"
+        // });
         setTimeout(() => triggerLogin(true), 2000);
       }
     } else if (sucess === 1) {

@@ -66,6 +66,10 @@
             flex: 1;
             color: #999999;
           }
+
+          .copy-text {
+            margin-left: 10px;
+          }
         }
       }
 
@@ -73,7 +77,8 @@
         margin-bottom: 16px;
       }
 
-      .detail-description {}
+      .detail-description {
+      }
     }
   }
 }

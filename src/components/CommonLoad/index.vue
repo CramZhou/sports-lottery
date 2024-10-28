@@ -1,9 +1,15 @@
 <template>
   <div class="load-wrapper">
     <div class="load-video"></div>
-    <div class="load-main">
-      <div class="load-bar" :style="{ width: `${loadCount}%` }"></div>
-      <div class="load-icon" :style="{ left: `${loadCount - 7}%` }"></div>
+    <div class="load-main-wrapper">
+      <div class="load-main">
+        <div class="load-bar" :style="{ width: `${loadCount}%` }"></div>
+        <div class="load-icon" :style="{ left: `${loadCount - 7}%` }"></div>
+      </div>
+      <div class="count-num">
+        <span>{{ loadCount }}</span
+        >%
+      </div>
     </div>
   </div>
 </template>

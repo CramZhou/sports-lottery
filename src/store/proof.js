@@ -1,5 +1,5 @@
 export default defineStore("proof", {
   state: () => ({
-    openid: "salkjdopweropwefewlkfnewlk"
+    openid: ""
   })
 });

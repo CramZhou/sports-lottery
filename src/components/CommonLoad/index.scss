@@ -10,20 +10,31 @@
 .load-video {
   position: absolute;
   top: 189px;
-  left: 358px;
+  // left: 358px;
+  left: 50%;
   width: 867px;
   height: 276px;
+  transform: translateX(-50%);
   background-image: url("@/assets/images/load.png");
   background-size: 100% 100%;
 }
 
-.load-main {
+.load-main-wrapper {
   position: absolute;
   top: 536px;
   left: 50%;
-  width: 609px;
-  height: 21px;
+  // width: 720px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
   transform: translateX(-50%);
+}
+
+.load-main {
+  position: relative;
+  width: 610px;
+  height: 20px;
   background-color: #d8d8d8;
   border-radius: 11px;
   border: 2px solid #000000;
@@ -46,5 +57,19 @@
     transform: translateY(-50%);
     background-image: url("@/assets/images/load-icon.png");
     background-size: 100% 100%;
+  }
+}
+
+.count-num {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 36px;
+  color: #000000;
+
+  span {
+    display: inline-block;
+    width: 70px;
+    text-align: right;
   }
 }
