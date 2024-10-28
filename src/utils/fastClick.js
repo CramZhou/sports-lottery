@@ -31,3 +31,12 @@ document.documentElement.addEventListener(
   },
   false
 );
+
+// 去除整屏被拖动问题
+document.addEventListener(
+  "touchmove",
+  (e) => {
+    e.preventDefault();
+  },
+  { passive: false }
+);

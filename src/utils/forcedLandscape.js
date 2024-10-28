@@ -1,8 +1,8 @@
-const forceLandscape = ((id = "#app") => {
+((id = "#app") => {
   const handler = () => {
-    let width = document.documentElement.clientWidth;
-    let height = document.documentElement.clientHeight;
-    let targetDom = document.querySelector(id);
+    const width = document.documentElement.clientWidth;
+    const height = document.documentElement.clientHeight;
+    const targetDom = document.querySelector(id);
     if (!targetDom) return;
     // 如果宽度比高度大，则认为处于横屏状态
     // 也可以获取 window.orientation 方向来判断屏幕状态
@@ -26,9 +26,9 @@ const forceLandscape = ((id = "#app") => {
   };
 
   const handleResize = () => {
-    setTimeout(() => {
-      handler();
-    }, 300);
+    // setTimeout(() => {
+    handler();
+    // }, 300);
   };
 
   window.addEventListener("resize", handleResize);

@@ -38,6 +38,7 @@
 <script setup>
 import useGetOpenid from "@/hooks/useGetOpenid";
 
+let openDoorTimer = null;
 const currentDoor = ref(0); // 当前门，用于开门
 const currentStation = ref(""); // 当前站点，用于弹窗，比开门晚
 const passStation = ref(0); // 记录已开过的站点，开过的站点，弹窗不需要再显示
@@ -89,7 +90,6 @@ const handlePause = () => {
   trainTimer && clearTimeout(trainTimer);
 };
 
-let openDoorTimer = null;
 watch(
   () => bgDis.value,
   (dis) => {
@@ -127,7 +127,7 @@ const loadCD = () => {
   loadTimer && clearTimeout(loadTimer);
   if (loadCount.value <= 100) {
     loadCount.value++;
-    loadTimer = setTimeout(() => loadCD(), 1);
+    loadTimer = setTimeout(() => loadCD(), 10);
   } else {
     bgCD();
     trainCD();
@@ -173,13 +173,6 @@ const { getOpenid } = useGetOpenid();
 onMounted(() => {
   getOpenid();
   loadCD();
-  document.addEventListener(
-    "touchmove",
-    (e) => {
-      e.preventDefault();
-    },
-    { passive: false }
-  );
 });
 
 onUnmounted(() => {

@@ -8,9 +8,9 @@ const appid = "wx2ca83ce0b1ec271c";
 export default () => {
   // 1、用appid跳转open.weixin.qq.com，换code在url上
   const getUrlCode = () => {
-    const url = location.search;
-    const theRequest = new Object();
-    if (url.indexOf("?") != -1) {
+    const url = window.location.search;
+    const theRequest = {};
+    if (url.indexOf("?") !== -1) {
       url
         .substring(1)
         .split("&")
@@ -28,6 +28,7 @@ export default () => {
     const { code } = getUrlCode(); // 第一步获取的code
     if (code == null || code === "") {
       // 没有code去拿code;
+      // eslint-disable-next-line max-len
       window.location.href = `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appid}&response_type=code&scope=snsapi_base&state=123&redirect_uri=${encodeURIComponent(
         href
       )}`;
