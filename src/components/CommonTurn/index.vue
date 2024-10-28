@@ -105,7 +105,8 @@ const handleRaffle = () => {
         //   message: "即将跳转注册",
         //   icon: "warning-o"
         // });
-        setTimeout(() => triggerLogin(true), 2000);
+        triggerLogin(true);
+        // setTimeout(() => triggerLogin(true), 2000);
       }
     } else if (sucess === 1) {
       const prize = bingoMap[data.type];
