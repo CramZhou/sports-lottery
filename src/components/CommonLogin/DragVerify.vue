@@ -139,7 +139,7 @@ onMounted(() => {
 /* 滑动控件容器,灰色背景 */
 #dragContainer {
   position: absolute;
-  top: 600px;
+  top: 540px;
   left: 50%;
   transform: translate(-50%, -50%);
   display: inline-block;

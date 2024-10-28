@@ -36,7 +36,9 @@ document.documentElement.addEventListener(
 document.addEventListener(
   "touchmove",
   (e) => {
-    e.preventDefault();
+    if (!["anDetail"].includes(e.target.id)) {
+      e.preventDefault();
+    }
   },
   { passive: false }
 );

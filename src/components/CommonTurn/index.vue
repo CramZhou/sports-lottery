@@ -1,5 +1,8 @@
 <template>
   <div class="turn-bg">
+    <div class="turn-logo"></div>
+    <div class="turn-30"></div>
+    <div class="turn-house"></div>
     <div class="turn-btn" @click="handleRaffle"></div>
     <div class="turn-circle"></div>
     <div
@@ -8,7 +11,7 @@
         transform: `rotateZ(${angle}deg)`
       }"
     ></div>
-
+    <!-- 三个按钮 -->
     <div class="float-icon">
       <div class="icon-item icon3" @click="() => handleTriggerPrize(true)"></div>
       <div class="icon-second">

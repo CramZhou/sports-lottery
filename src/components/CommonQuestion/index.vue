@@ -24,7 +24,7 @@
           <div class="an-error" v-else>回答错误</div>
           <div class="an-solution">{{ currentIssue.solution }}</div>
         </div>
-        <div class="an-detail">{{ currentIssue.detail }}</div>
+        <div class="an-detail" id="anDetail">{{ currentIssue.detail }}</div>
         <div class="popup-btn" v-if="isCorrect" @click="handleGoOn"><span>点击前行</span></div>
         <div class="popup-btn" v-else @click="handleResume"><span>重新开始</span></div>
       </template>
@@ -79,6 +79,8 @@ const handleResume = () => {
   emit("handleRestart");
   handleGoOn();
 };
+
+onMounted(() => {});
 </script>
 
 <style lang="scss" scoped>

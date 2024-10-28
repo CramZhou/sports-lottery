@@ -2,7 +2,7 @@
   <div class="login-wrapper">
     <div class="logo"></div>
     <div class="login-form">
-      <div class="login-title">欢迎注册</div>
+      <!-- <div class="login-title">欢迎注册</div> -->
       <div class="login-input">
         <div class="input-item">
           <label for="tel">手机号</label>
