@@ -179,6 +179,7 @@ onUnmounted(() => {
   loadTimer && clearTimeout(loadTimer);
   bgTimer && clearTimeout(bgTimer);
   trainTimer && clearTimeout(trainTimer);
+  openDoorTimer && clearTimeout(openDoorTimer);
 });
 </script>
 
