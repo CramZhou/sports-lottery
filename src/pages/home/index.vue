@@ -146,7 +146,7 @@ const loadCD = () => {
   loadTimer && clearTimeout(loadTimer);
   if (loadCount.value <= 100) {
     loadCount.value++;
-    loadTimer = setTimeout(() => loadCD(), 1);
+    loadTimer = setTimeout(() => loadCD(), 40);
   } else {
     bgCD();
     trainCD();
