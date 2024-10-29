@@ -82,19 +82,21 @@ const handleChooseLotto = () => {
 const frontZoon = ref([]);
 const backZoon = ref([]);
 const getNum = (arr, number, scope) => {
+  // 满限定个数，退出
   if (arr.length >= number) return;
-  // 取随机数
+  // 取随机数，小于10的前面加0
   let ran = getRandom(scope, 1);
   if (ran < 10) {
     ran = `0${ran}`;
   }
-  // 没有的才放入
+  // 池子里面没有的才放入
   if (!arr.includes(ran)) {
     arr.push(ran);
   }
   getNum(arr, number, scope);
 };
 
+/** step3 */
 const viewRule = () => {
   currentStep.value = 3;
 };

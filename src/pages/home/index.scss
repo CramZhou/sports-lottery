@@ -5,6 +5,12 @@
   overflow: hidden;
   background: #d0f8ff;
 
+  audio {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+  }
+
   .bg-b {
     position: absolute;
     top: 0;
@@ -126,5 +132,14 @@
         background-image: url("@/assets/images/icon3.png");
       }
     }
+  }
+
+  .float-audio {
+    position: absolute;
+    top: 160px;
+    right: 16px;
+    width: 182px;
+    height: 182px;
+    z-index: 4;
   }
 }
