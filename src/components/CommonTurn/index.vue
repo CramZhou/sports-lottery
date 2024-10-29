@@ -8,7 +8,8 @@
     <div
       class="turn-loop"
       :style="{
-        transform: `rotateZ(${angle}deg)`
+        transform: `rotateZ(${angle}deg)`,
+        transition: `${angle ? 'transform 3000ms ease' : 'null'}`
       }"
     ></div>
     <!-- 四个按钮 -->
@@ -27,20 +28,20 @@
     <!-- 未中奖 -->
     <div class="lose-wrapper" v-if="loseFlag">
       <div class="lose-main">
-        <img class="close-btn" :src="close" @click="() => (loseFlag = false)" />
-        <div class="handle-btn" @click="() => (loseFlag = false)"><span>知道了</span></div>
+        <img class="close-btn" :src="close" @click="handleCloseLose" />
+        <div class="handle-btn" @click="handleCloseLose"><span>知道了</span></div>
       </div>
     </div>
     <!-- 中奖了 -->
     <div class="bingo-wrapper" v-if="bingoFlag">
       <div class="bingo-main">
-        <img class="close-btn" :src="close" @click="() => (bingoFlag = false)" />
+        <img class="close-btn" :src="close" @click="handleCloseBingo" />
         <div class="bingo-title">中奖啦，恭喜您获得</div>
         <img class="bingo-img" :src="bingoDetail.src" />
         <div class="bingo-info" @click="() => triggerBingoDetail(true)">
           <span>查看卡号卡密</span>
         </div>
-        <div class="handle-btn" @click="() => (bingoFlag = false)"><span>知道了</span></div>
+        <div class="handle-btn" @click="handleCloseBingo"><span>知道了</span></div>
       </div>
     </div>
     <common-prize-detail v-if="bingoInfoShow" :prize-detail="bingoDetail" @triggerDetail="triggerBingoDetail" />
@@ -79,6 +80,10 @@ const fetchResidue = () => {
 const loginFlag = ref(false);
 const triggerLogin = (flag) => {
   loginFlag.value = flag;
+  if (!flag) {
+    // 注册完跳回来 请求下剩余次数
+    fetchResidue();
+  }
 };
 
 /** 转盘 */
@@ -86,8 +91,16 @@ const triggerLogin = (flag) => {
 const angle = ref(0);
 // 未中奖
 const loseFlag = ref(false);
+const handleCloseLose = () => {
+  loseFlag.value = false;
+  angle.value = 0;
+};
 // 中奖了
 const bingoFlag = ref(false);
+const handleCloseBingo = () => {
+  bingoFlag.value = false;
+  angle.value = 0;
+};
 const bingoDetail = ref({});
 const bingoInfoShow = ref(false);
 const triggerBingoDetail = (flag) => {
@@ -95,8 +108,6 @@ const triggerBingoDetail = (flag) => {
 };
 // 点击抽奖
 const handleRaffle = () => {
-  if (angle.value > 0) return;
-
   // 中奖测试
   // const data = {
   //   desc: '复制券码，打开京东APP点击"我的"进入"我的钱包""礼品卡"页面底部"绑定新卡输入卡密及验证码点击绑定',
@@ -117,7 +128,6 @@ const handleRaffle = () => {
       if (errorcode.toString() === "1001") {
         // 1001 未注册，需跳转
         triggerLogin(true);
-        // setTimeout(() => triggerLogin(true), 2000);
       } else {
         showToast({
           message: msg,

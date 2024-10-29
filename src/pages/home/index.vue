@@ -1,8 +1,7 @@
 <template>
   <div class="body-main">
-    <audio loop preload="auto" ref="audioRef">
+    <audio loop="loop" preload="preload" autoplay="autoplay" ref="audioRef">
       <source src="https://luck.yeyang0512.com/luck.mp3" type="audio/mpeg" />
-      您的浏览器不支持 audio 元素。
     </audio>
     <common-load :load-count="loadCount" v-if="loadCount <= 100" />
     <div class="bg-b" :style="{ transform: `translateX(${bgDis}%)` }"></div>
@@ -19,7 +18,7 @@
       </div>
       <div class="icon-item icon3" @click="() => handleTriggerPrize(true)"></div>
     </div>
-    <img class="float-audio" :src="isPlay ? audioPlay : audioPause" @click="switchAudio" />
+    <img class="float-audio" :src="isPlay ? audioPlay : audioPause" @click="isPlay = !isPlay" />
     <!-- 答题弹窗 -->
     <common-question
       v-show="['1', '2', '3'].includes(currentStation)"
@@ -48,14 +47,18 @@ import useGetOpenid from "@/hooks/useGetOpenid";
 /** 音频 */
 const audioRef = ref();
 const isPlay = ref(false);
-const switchAudio = () => {
-  isPlay.value = !isPlay.value;
-  if (isPlay.value) {
-    audioRef.value.play();
-  } else {
-    audioRef.value.pause();
-  }
-};
+
+watch(
+  () => isPlay.value,
+  (flag) => {
+    if (flag) {
+      audioRef.value?.play();
+    } else {
+      audioRef.value?.pause();
+    }
+  },
+  { immediate: true }
+);
 
 let openDoorTimer = null;
 const currentDoor = ref(0); // 当前门，用于开门
@@ -141,7 +144,7 @@ watch(
 
 /** loading */
 let loadTimer = null;
-const loadCount = ref(0);
+const loadCount = ref(100);
 const loadCD = () => {
   loadTimer && clearTimeout(loadTimer);
   if (loadCount.value <= 100) {
