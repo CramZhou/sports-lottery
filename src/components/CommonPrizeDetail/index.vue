@@ -6,28 +6,28 @@
       <div class="detail-slide">
         <div class="detail-info">
           <div class="info-item">
-            <div>卡号：</div>
-            <span>{{ prizeDetail.idinfo }}</span>
+            <div class="info-label">卡号：</div>
+            <div class="info-gray">{{ prizeDetail.idinfo }}</div>
             |
             <div
               :style="{
                 color: copyKh ? '#59ca8a' : '#000'
               }"
-              class="copy-text"
+              class="info-copy"
               @click="() => handleCopy(prizeDetail.idinfo, 'kh')"
             >
               复制
             </div>
           </div>
           <div class="info-item">
-            <div>券码：</div>
-            <span>{{ prizeDetail.info }}</span>
+            <div class="info-label">券码：</div>
+            <div class="info-gray">{{ prizeDetail.info }}</div>
             |
             <div
               :style="{
                 color: copyQm ? '#59ca8a' : '#000'
               }"
-              class="copy-text"
+              class="info-copy"
               @click="() => handleCopy(prizeDetail.info, 'qm')"
             >
               复制
@@ -44,7 +44,7 @@
 </template>
 
 <script setup>
-// import { showToast } from "vant";
+import { showToast } from "vant";
 import close from "@/assets/images/close.png";
 
 const emit = defineEmits(["triggerDetail"]);
@@ -67,10 +67,10 @@ const handleCopy = (text, flag) => {
   if (flag === "qm") {
     copyQm.value = true;
   }
-  // showToast({
-  //   message: "复制成功",
-  //   icon: "success"
-  // });
+  showToast({
+    message: "复制成功",
+    icon: "success"
+  });
 };
 </script>
 

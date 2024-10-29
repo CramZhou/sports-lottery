@@ -70,6 +70,7 @@ const handleRegister = async () => {
 
 onMounted(() => {
   if (width < height) {
+    // setTimeout(() => {
     targetDom.style.position = "absolute";
     targetDom.style.width = `${width}px`;
     targetDom.style.height = `${height}px`;
@@ -77,6 +78,7 @@ onMounted(() => {
     targetDom.style.top = `${0}px`;
     targetDom.style.transform = "none";
     targetDom.style.transformOrigin = "50% 50%";
+    // }, 300);
   }
 });
 

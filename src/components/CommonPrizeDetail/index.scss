@@ -62,12 +62,19 @@
           display: flex;
           justify-content: space-between;
 
-          span {
-            flex: 1;
-            color: #999999;
+          .info-label {
+            width: 76px;
           }
 
-          .copy-text {
+          .info-gray {
+            flex: 1;
+            color: #999999;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
+
+          .info-copy {
             margin-left: 10px;
           }
         }

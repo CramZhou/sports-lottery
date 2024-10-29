@@ -90,19 +90,12 @@
   position: absolute;
   top: 120px;
   right: 20px;
-  // left: 20px;
   z-index: 1;
-  height: calc(100% - 120px);
+  height: calc(100% - 140px);
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: center;
   justify-content: space-between;
-
-  .icon-second {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
-  }
 
   .icon-item {
     width: 164px;
@@ -119,6 +112,29 @@
 
     &.icon3 {
       background-image: url("@/assets/images/icon3.png");
+    }
+
+    &.icon4 {
+      width: 168px;
+      height: 154px;
+      padding-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+      font-size: 24px;
+      line-height: 30px;
+
+      div {
+        display: block;
+        color: #d73e3e;
+
+        span {
+          color: #000;
+        }
+      }
+      background-image: url("@/assets/images/today-residue.png");
     }
   }
 }

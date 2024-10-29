@@ -11,11 +11,16 @@
         transform: `rotateZ(${angle}deg)`
       }"
     ></div>
-    <!-- 三个按钮 -->
+    <!-- 四个按钮 -->
     <div class="float-icon">
       <div class="icon-item icon3" @click="() => handleTriggerPrize(true)"></div>
-      <div class="icon-second">
-        <div class="icon-item icon2" @click="() => handleTriggerRule(true)"></div>
+      <div class="icon-item icon2" @click="() => handleTriggerRule(true)"></div>
+      <div class="icon-item icon4">
+        <div>今日还有</div>
+        <div>
+          <span>{{ todayResidue }}</span> 次
+        </div>
+        <div>抽奖机会</div>
       </div>
       <div class="icon-item icon1" @click="() => emit('handleBackHome')"></div>
     </div>
@@ -49,7 +54,7 @@
 </template>
 
 <script setup>
-// import { showToast } from "vant";
+import { showToast } from "vant";
 import { getRandom } from "@/utils";
 import { projectApi } from "@/service";
 import close from "@/assets/images/close.png";
@@ -60,27 +65,35 @@ const { openid } = proofStore();
 
 const emit = defineEmits(["handleBackHome"]);
 
+/** 今日剩余 */
+const todayResidue = ref(0);
+const fetchResidue = () => {
+  projectApi({ method: "today_gift", openid }).then(({ sucess, data = {} }) => {
+    if (sucess === 1) {
+      todayResidue.value = data.today_gift;
+    }
+  });
+};
+
 /** 注册 */
 const loginFlag = ref(false);
 const triggerLogin = (flag) => {
   loginFlag.value = flag;
 };
 
-/** 转盘角度 */
+/** 转盘 */
+// 转盘角度
 const angle = ref(0);
-
-/** 未中奖 */
+// 未中奖
 const loseFlag = ref(false);
-
-/** 中奖了 */
+// 中奖了
 const bingoFlag = ref(false);
 const bingoDetail = ref({});
 const bingoInfoShow = ref(false);
-
 const triggerBingoDetail = (flag) => {
   bingoInfoShow.value = flag;
 };
-
+// 点击抽奖
 const handleRaffle = () => {
   if (angle.value > 0) return;
 
@@ -98,24 +111,36 @@ const handleRaffle = () => {
   // bingoDetail.value = { ...prize, ...data };
   // setTimeout(() => (bingoFlag.value = true), 3100);
 
-  projectApi({ method: "gift", openid }).then(({ sucess, msg, data }) => {
+  projectApi({ method: "gift", openid }).then(({ sucess, errorcode = "", msg, data = {} }) => {
     if (sucess === 0) {
-      if (msg === "谢谢，未抽中！") {
-        angle.value = loseAngle[getRandom(3)];
-        setTimeout(() => (loseFlag.value = true), 3100);
-      } else if (msg === " 请先注册！") {
-        // showToast({
-        //   message: "即将跳转注册",
-        //   icon: "warning-o"
-        // });
+      // 错误情况，弹出提示
+      if (errorcode.toString() === "1001") {
+        // 1001 未注册，需跳转
         triggerLogin(true);
         // setTimeout(() => triggerLogin(true), 2000);
+      } else {
+        showToast({
+          message: msg,
+          icon: "warning-o"
+        });
       }
     } else if (sucess === 1) {
-      const prize = bingoMap[data.type];
-      angle.value = prize.angle;
-      bingoDetail.value = { ...prize, ...data };
-      setTimeout(() => (bingoFlag.value = true), 3100);
+      const { type } = data;
+      if (type.toString() === "99") {
+        angle.value = loseAngle[getRandom(3)];
+        setTimeout(() => {
+          loseFlag.value = true;
+          fetchResidue();
+        }, 3100);
+      } else {
+        const prize = bingoMap[type];
+        angle.value = prize.angle;
+        bingoDetail.value = { ...prize, ...data };
+        setTimeout(() => {
+          bingoFlag.value = true;
+          fetchResidue();
+        }, 3100);
+      }
     }
   });
 };
@@ -131,6 +156,10 @@ const prizeFlag = ref(false);
 const handleTriggerPrize = (flag) => {
   prizeFlag.value = flag;
 };
+
+onMounted(() => {
+  fetchResidue();
+});
 </script>
 
 <style lang="scss" scoped>
