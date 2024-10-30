@@ -44,7 +44,9 @@ const triggerVerify = (flag) => {
   verifyFlag.value = flag;
   if (!flag) {
     projectApi({ method: "sendcode", phone: loginParams.value.phone, openid, wxtoken }).then(({ msg }) => {
-      showToast(msg);
+      if (msg) {
+        showToast(msg);
+      }
     });
   }
 };
@@ -60,7 +62,9 @@ const handleRegister = async () => {
   const { phone, code } = loginParams.value;
   if (loginParams.value.phone && loginParams.value.code) {
     await projectApi({ method: "register", phone, openid, code }).then(({ msg }) => {
-      showToast(msg);
+      if (msg) {
+        showToast(msg);
+      }
     });
     setTimeout(() => {
       emit("triggerLogin", false);
@@ -69,29 +73,29 @@ const handleRegister = async () => {
 };
 
 onMounted(() => {
-  if (width < height) {
-    // setTimeout(() => {
-    targetDom.style.position = "absolute";
-    targetDom.style.width = `${width}px`;
-    targetDom.style.height = `${height}px`;
-    targetDom.style.left = `${0}px`;
-    targetDom.style.top = `${0}px`;
-    targetDom.style.transform = "none";
-    targetDom.style.transformOrigin = "50% 50%";
-    // }, 300);
-  }
+  // if (width < height) {
+  // setTimeout(() => {
+  // targetDom.style.position = "absolute";
+  targetDom.style.width = `${width}px`;
+  targetDom.style.height = `${height}px`;
+  targetDom.style.left = `${0}px`;
+  targetDom.style.top = `${0}px`;
+  targetDom.style.transform = "none";
+  // targetDom.style.transformOrigin = "50% 50%";
+  // }, 300);
+  // }
 });
 
 onUnmounted(() => {
-  if (width < height) {
-    targetDom.style.position = "absolute";
-    targetDom.style.width = `${height}px`;
-    targetDom.style.height = `${width}px`;
-    targetDom.style.left = `${0 - (height - width) / 2}px`;
-    targetDom.style.top = `${(height - width) / 2}px`;
-    targetDom.style.transform = "rotate(90deg)";
-    targetDom.style.transformOrigin = "50% 50%";
-  }
+  // if (width < height) {
+  // targetDom.style.position = "absolute";
+  targetDom.style.width = `${height}px`;
+  targetDom.style.height = `${width}px`;
+  targetDom.style.left = `${0 - (height - width) / 2}px`;
+  targetDom.style.top = `${(height - width) / 2}px`;
+  targetDom.style.transform = "rotate(90deg)";
+  // targetDom.style.transformOrigin = "50% 50%";
+  // }
 });
 </script>
 

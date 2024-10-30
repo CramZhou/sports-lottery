@@ -34,7 +34,7 @@
     </div>
     <!-- 未中奖 -->
     <div class="lose-wrapper" v-if="loseFlag">
-      <div class="no-main">
+      <div class="lose-main">
         <img class="close-btn" :src="close" @click="handleCloseLose" />
         <div class="handle-btn" @click="handleCloseLose"><span>知道了</span></div>
       </div>
