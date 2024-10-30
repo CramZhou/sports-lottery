@@ -33,7 +33,7 @@ const targetDom = document.querySelector("#app");
 
 const emit = defineEmits(["triggerLogin"]);
 
-const { openid } = proofStore();
+const { openid, wxtoken } = proofStore();
 
 /** 注册参数 */
 const loginParams = ref({ phone: "", code: "" });
@@ -43,7 +43,7 @@ const verifyFlag = ref(false);
 const triggerVerify = (flag) => {
   verifyFlag.value = flag;
   if (!flag) {
-    projectApi({ method: "sendcode", phone: loginParams.value.phone, openid }).then(({ msg }) => {
+    projectApi({ method: "sendcode", phone: loginParams.value.phone, openid, wxtoken }).then(({ msg }) => {
       showToast(msg);
     });
   }

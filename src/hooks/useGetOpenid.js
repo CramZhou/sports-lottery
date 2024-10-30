@@ -36,6 +36,7 @@ export default () => {
       projectApi({ method: "getopenid", code }).then(({ data, sucess }) => {
         if (sucess === 1) {
           store.openid = data.openid;
+          store.wxtoken = data.wxtoken;
         }
       });
     }

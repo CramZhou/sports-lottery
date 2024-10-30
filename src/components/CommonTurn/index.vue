@@ -25,9 +25,16 @@
       </div>
       <div class="icon-item icon1" @click="() => emit('handleBackHome')"></div>
     </div>
+    <!-- 没次数 -->
+    <div class="no-wrapper" v-if="noFlag">
+      <div class="no-main">
+        <img class="close-btn" :src="close" @click="handleCloseNo" />
+        <div class="no-text">今日抽奖次数已用完</div>
+      </div>
+    </div>
     <!-- 未中奖 -->
     <div class="lose-wrapper" v-if="loseFlag">
-      <div class="lose-main">
+      <div class="no-main">
         <img class="close-btn" :src="close" @click="handleCloseLose" />
         <div class="handle-btn" @click="handleCloseLose"><span>知道了</span></div>
       </div>
@@ -89,6 +96,11 @@ const triggerLogin = (flag) => {
 /** 转盘 */
 // 转盘角度
 const angle = ref(0);
+// 没次数
+const noFlag = ref(false);
+const handleCloseNo = () => {
+  noFlag.value = false;
+};
 // 未中奖
 const loseFlag = ref(false);
 const handleCloseLose = () => {
@@ -109,10 +121,11 @@ const triggerBingoDetail = (flag) => {
 // 点击抽奖
 const handleRaffle = () => {
   if (todayResidue.value === 0) {
-    showToast({
-      message: "今日抽奖次数已用完",
-      icon: "warning-o"
-    });
+    // showToast({
+    //   message: "今日抽奖次数已用完",
+    //   icon: "warning-o"
+    // });
+    noFlag.value = true;
     return;
   }
   // 中奖测试
