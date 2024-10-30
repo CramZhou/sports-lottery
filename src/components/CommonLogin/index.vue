@@ -14,7 +14,7 @@
           <div class="send" @click="handleSendCode">发送验证码</div>
         </div>
       </div>
-      <div class="login-confirm" @click="handleRegister"><span>注册</span></div>
+      <div class="login-confirm" @click="handleRegister"><span>登录</span></div>
     </div>
     <!-- 拖动条 -->
     <DragVerify v-if="verifyFlag" @triggerVerify="triggerVerify" />

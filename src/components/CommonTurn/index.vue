@@ -108,6 +108,13 @@ const triggerBingoDetail = (flag) => {
 };
 // 点击抽奖
 const handleRaffle = () => {
+  if (todayResidue.value === 0) {
+    showToast({
+      message: "今日抽奖次数已用完",
+      icon: "warning-o"
+    });
+    return;
+  }
   // 中奖测试
   // const data = {
   //   desc: '复制券码，打开京东APP点击"我的"进入"我的钱包""礼品卡"页面底部"绑定新卡输入卡密及验证码点击绑定',

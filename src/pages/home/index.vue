@@ -144,7 +144,7 @@ watch(
 
 /** loading */
 let loadTimer = null;
-const loadCount = ref(100);
+const loadCount = ref(0);
 const loadCD = () => {
   loadTimer && clearTimeout(loadTimer);
   if (loadCount.value <= 100) {
@@ -193,7 +193,7 @@ const handleTriggerPrize = (flag) => {
 const { getOpenid } = useGetOpenid();
 
 onMounted(() => {
-  getOpenid();
+  // getOpenid();
   loadCD();
 });
 
